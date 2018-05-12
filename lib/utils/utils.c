@@ -236,3 +236,28 @@ int id_tabla(char *word){
     aux=0; 
   return aux;
 }
+//------------------------
+
+int id_comando(char *comando[]) /*muestra id de comando*/
+{
+  int aux = -1;
+  if (!strcmp(comando[1],COMANDO_AGREGAR))
+  {
+    printf("es comando agregar %d\n  " ,strcmp(comando[2], "empleado"));  // if (ES_TABLA_VALIDA(argv[2]))    {   printf("es tabla valida %s\n", argv[2] ); }
+    aux = 0;
+  }
+  if (!strcmp(comando[1],COMANDO_LISTAR))
+  {
+    printf("es comando listar\n" );
+    //printf("es tabla: %d \n", id_tabla(comando[2]) );//if (ES_TABLA_VALIDA(argv[2])){      printf("es tabla valida %s\n", argv[2] ); }  
+    if (!strcmp(comando[3],COMANDO_SALIDA))
+    {
+      printf("es comando salida\n" );
+      aux = 2;
+    }else{
+        printf("no hay comando salida\n" );    
+        aux = 1;
+    }
+  }
+  return aux;
+}
