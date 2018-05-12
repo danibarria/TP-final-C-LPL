@@ -1,5 +1,9 @@
 extern PGconn *conn;
 
+#define COMANDO_AGREGAR "-a"
+#define COMANDO_LISTAR "-l"
+#define COMANDO_SALIDA "-f"
+
 char* rtrim(char* string, char junk);
 char** fStrSplit(char *str, const char *delimiters);
 char* fStrJoin(char **str, const char *delimiters, int sz_opt);
@@ -19,4 +23,5 @@ void separarArgumentosTurno(char **, int, int, char ***);
 void mostrarAyuda(char *);
 
 
-int id_tabla(char *) /*muestra el ID de la tabla*/
+int id_tabla(char *);/*muestra el ID de la tabla*/
+int id_comando(char**); /*muestra id de comando*/
