@@ -17,3 +17,6 @@ void separarArgumentos(int, char*, char**, int, char***, int *);
 void separarArgumentosProfesional(char **, int, int, int **);
 void separarArgumentosTurno(char **, int, int, char ***);
 void mostrarAyuda(char *);
+
+
+int id_tabla(char *) /*muestra el ID de la tabla*/

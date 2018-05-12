@@ -217,3 +217,22 @@ void separarArgumentosTurno(char **argumentos, int inicio, int maximo, char ***a
 void mostrarAyuda(char* argumento){
 	printf("MODO DE USO: [-h] tpfinalc <comando> [<argumentos>]\n");
 } 
+//-------------------------
+
+int id_tabla(char *word){
+  /*Devuelve el id de la tabla, sino devuelve -1*/
+  int aux = -1;
+  if(!strcmp(word,"empleado")) 
+    aux=5; 
+  if(!strcmp(word,"producto"))
+    aux=4;
+  if(!strcmp(word,"proveedor"))
+    aux=3; 
+  if(!strcmp(word,"orden"))
+    aux=2; 
+  if(!strcmp(word,"cliente"))
+    aux=1;
+  if(!strcmp(word,"categoria"))
+    aux=0; 
+  return aux;
+}
