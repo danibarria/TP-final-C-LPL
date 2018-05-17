@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
   int i=0,size=0;
   void *list;
   
- 
+  result=id_comando(argv[]);
    
   switch(1){
   case 0:
