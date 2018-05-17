@@ -86,11 +86,17 @@ int main(int argc, char *argv[])
   int i=0,size=0;
   void *list;
   
+   add_categoria("Lechoso");
+   add_proveedor("Lucas", "Lucas@Lucas", "123", "456");
+  /*switch(1){
+
   result=id_comando(argv[]);
    
   switch(1){
   case 0:
   		//realizar alta
+  		//caso de categoria
+		//switch()
   		break;
   case 1:
   		listarTipo(3);//agregar la funcion que nos dice que tabla se debe listar
@@ -98,7 +104,7 @@ int main(int argc, char *argv[])
   case 2:
         //hacer el listado de la tabla y escribir la salida de el listado en el archivo
         break;
-  }	
+  };	*/
   
   system("PAUSE");	
   return 0;

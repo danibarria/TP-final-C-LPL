@@ -27,7 +27,7 @@ CustomMakefile=Makefile.win
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=3
-CompilerSettings=0000000100000000000000000
+CompilerSettings=0000000100000000001000000
 LogOutput=
 LogOutputEnabled=0
 
