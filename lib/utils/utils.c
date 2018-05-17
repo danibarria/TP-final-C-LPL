@@ -236,7 +236,7 @@ int id_tabla(char *word){
     aux=0; 
   return aux;
 }
-//------------------------
+//------------------------__________________________________________________
 
 int id_comando(char *comando[]) /*muestra id de comando*/
 {

@@ -50,4 +50,6 @@ typedef struct {
 
 // funcionalidad publica que se implementa en proveedor.c
 extern obj_proveedor *proveedor_new();
+//funcinalidad de proveeor para guardarlo en la base de datos
+void addProvedor(char *comando[]);
 #endif
