@@ -24,8 +24,8 @@ typedef enum { false=0,true=1} bool;
 
 #define SERVER "localhost"
 #define PORT "5432"
-#define DB "negocio"
+#define DB "Empresa18"
 #define USER "postgres"
-#define PASS "dni38803910"
+#define PASS "lucasoto"
  
 #endif

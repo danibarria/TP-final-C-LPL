@@ -86,20 +86,16 @@ int main(int argc, char *argv[])
   int i=0,size=0;
   void *list;
   
- 
    add_categoria("Lechoso");
    add_proveedor("Lucas", "Lucas@Lucas", "123", "456");
   /*switch(1){
-=======
+
   result=id_comando(argv[]);
    
   switch(1){
->>>>>>> eac2382d68fefcb7f9c5d41b8daa1f3cdc9b646b
   case 0:
   		//realizar alta
   		//caso de categoria
-  		
-  		
 		//switch()
   		break;
   case 1:

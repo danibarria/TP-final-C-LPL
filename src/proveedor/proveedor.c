@@ -14,7 +14,7 @@ static const char *col_proveedor[]={"proveedor_id","nombre_proveedor","contacto"
 static const char *strSQL_SELECT_MAX_ID = "select max(proveedor_id) from proveedores;";
 static const char *strSQL_KEY = "proveedor_id = %d";
 static const char *strSQL_INSERT = "insert into proveedores(proveedor_id,nombre_proveedor,celu_prov,contacto,fijo_prov)values(%s);";
-static const char *strSQL_INSERT_Param = "'%s','%s','%s','%s'";
+static const char *strSQL_INSERT_Param = "'%d','%s','%s','%s','%s'";
 static const char *strSQL_UPDATE = "update proveedores set %s where %s;";
 static const char *strSQL_UPDATE_Param ="nombre_proveedor = '%s', celu_prov ='%s', contacto = '%s', fijo_prov='%s'";
 
@@ -146,7 +146,7 @@ int saveObj_proveedorImpl(void *self)
 	newIdProveedor = atoi(PQgetvalue(res,0,0));	
 	PQclear(res);	
 	obj->proveedor_id =++newIdProveedor;
-    sprintf(values, strSQL_INSERT_Param,obj->proveedor_id, obj->nombre_proveedor,obj->celu_prov,obj->contacto, obj->fijo_prov);
+    sprintf(values, strSQL_INSERT_Param,obj->proveedor_id, obj->nombre_proveedor,obj->contacto,obj->celu_prov, obj->fijo_prov);
     snprintf( sql, MAX_SQL, strSQL_INSERT, values);
     res = PQexec(conn, sql);
     code = PQresultStatus(res);
@@ -274,14 +274,15 @@ obj_proveedor *proveedor_new()
 // los argumentos tienen que venir en orden y ser del tipo indicado para poder asignarlos en caso incorrecto error salir
 
 void add_proveedor(char *nombre,char *contacto,char *celular,char *fijo){
-  obj_proveedor *prov  ,*pv_row;
+  obj_proveedor *prov;
   prov = proveedor_new();
     
-  prov->setNombreProveedor(prov,nombre);
-  prov->setContacto(prov,contacto);
-  prov->setCeluProv(prov,celular);
-  prov->setFijoProv(prov,fijo);
+  //prov->setNombreProveedor(prov,nombre);
+  //prov->setContacto(prov,contacto);
+  //prov->setCeluProv(prov,celular);
+  //prov->setFijoProv(prov,fijo);
+  
   prov->saveObj(prov);
-  destroyObj(prov);
+  prov->showObj(prov);
   
 }
