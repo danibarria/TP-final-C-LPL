@@ -24,4 +24,9 @@ void mostrarAyuda(char *);
 
 
 int id_tabla(char *);/*muestra el ID de la tabla*/
-int id_comando(char**); /*muestra id de comando*/
+int id_comando(char**,int); /*muestra id de comando*/
+
+
+void listarTipo(int); /*recibe un entero, lista segun la table*/
+
+int crearArchivo(char *); /*recibe un archivo y lo crea*/

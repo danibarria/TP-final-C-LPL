@@ -28,7 +28,7 @@ static char *getKey(int k,char *where)
 //----------------------------------------------------
 static obj_categoria *this(void *self)
 {
-   return (obj_categoria*)self;
+   return (obj_categoria*)self;    
 }
 //----------------------------------------------------
 //Copiar a puntero de arreglo en posicion dada, desde un result set de base de datos.

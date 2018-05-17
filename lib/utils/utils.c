@@ -4,6 +4,24 @@
 #include <time.h>
 #include <malloc.h>
 
+#include <unistd.h>
+
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include "../../config/config.h"
+#include "../orm/orm.h"
+#include "utils.h"
+
+#include "../../src/empleado/empleado.h"
+#include "../../src/categoria/categoria.h"
+#include "../../src/cliente/cliente.h"
+#include "../../src/proveedor/proveedor.h"
+#include "../../src/producto/producto.h"
+#include "../../src/orden/orden.h"
+#include "../../src/orden_det/orden_det.h"
+
+
 #include "utils.h"
 #include "../../config/config.h"
 
@@ -223,41 +241,147 @@ int id_tabla(char *word){
   /*Devuelve el id de la tabla, sino devuelve -1*/
   int aux = -1;
   if(!strcmp(word,"empleado")) 
-    aux=5; 
-  if(!strcmp(word,"producto"))
-    aux=4;
-  if(!strcmp(word,"proveedor"))
-    aux=3; 
-  if(!strcmp(word,"orden"))
-    aux=2; 
-  if(!strcmp(word,"cliente"))
-    aux=1;
-  if(!strcmp(word,"categoria"))
     aux=0; 
+  if(!strcmp(word,"producto"))
+    aux=1;
+  if(!strcmp(word,"proveedor"))
+    aux=2; 
+  if(!strcmp(word,"orden"))
+    aux=3; 
+  if(!strcmp(word,"cliente"))
+    aux=4;
+  if(!strcmp(word,"categoria"))
+    aux=5; 
   return aux;
 }
 //------------------------__________________________________________________
 
-int id_comando(char *comando[]) /*muestra id de comando*/
+int id_comando(char *comando[],int argc) /*muestra id de comando*/
 {
   int aux = -1;
   if (!strcmp(comando[1],COMANDO_AGREGAR))
   {
-    printf("es comando agregar %d\n  " ,strcmp(comando[2], "empleado"));  // if (ES_TABLA_VALIDA(argv[2]))    {   printf("es tabla valida %s\n", argv[2] ); }
+    printf("es el comando agregar: -a\n  ");
     aux = 0;
   }
   if (!strcmp(comando[1],COMANDO_LISTAR))
   {
-    printf("es comando listar\n" );
-    //printf("es tabla: %d \n", id_tabla(comando[2]) );//if (ES_TABLA_VALIDA(argv[2])){      printf("es tabla valida %s\n", argv[2] ); }  
-    if (!strcmp(comando[3],COMANDO_SALIDA))
-    {
-      printf("es comando salida\n" );
+    printf("es el comando listar: -l\n" );
+   if (argc-1>2){
+      if ( !strcmp(comando[3],COMANDO_SALIDA))
+      {
+      printf("con redireccion a archivo\n" );
       aux = 2;
-    }else{
-        printf("no hay comando salida\n" );    
+      }   
+   }else{
+        printf("sin redireccion a archivo\n" );    
         aux = 1;
     }
   }
   return aux;
 }
+
+
+int crearArchivo(char *nombre){
+   FILE *fd;
+   fd = fopen(nombre, "w+");
+   if(fd == NULL){
+      return 1;
+   }
+   fclose(fd);
+   return 0;
+}
+
+void menu(int cant_argumentos,char *argumentos[]){
+	int operacion, tabla;
+	operacion= id_comando(argumentos, cant_argumentos);
+	
+	switch(operacion){
+      case 0:
+         //que alta tenemos que hacer()
+         //nombre.exe -a nombreTabla args
+         tabla=id_tabla(argumentos[2]);
+         switch(tabla){
+            case 2:
+               //add_proveedor
+               //alta proveedor 
+               //nombre.exe -a proveedor nombre contacto celu fijo
+               add_proveedor(argumentos[3],argumentos[4],argumentos[5],argumentos[6]);
+               break;
+            case 5:
+               //add_categoria
+               //alta categoria
+               //nombre.exe -a categoria nombre
+               add_categoria(argumentos[3]);
+               break;
+            default:
+               printf("no implementado. \n");
+         }
+         //alta categoria
+         break;
+      case 1:
+         //listar comun
+         tabla=id_tabla(argumentos[2]);
+         listarTipo(tabla);
+         //funcion listar
+         break;
+      case 2:
+         //listar redireccion
+         //nombre.exe -l tabla -f archivo
+         crearArchivo(argumentos[4]);
+         
+         break;
+   }
+}
+
+void listarTipo(int tipo)	{
+  obj_empleado *emp,*e_row;
+  obj_categoria *cat,*c_row;
+  obj_cliente *cli,*cli_row;
+  obj_proveedor *prov  ,*pv_row;
+  obj_producto *p,*p_rw;
+  obj_orden *o;
+  obj_orden_det *odet;
+  	
+	switch(tipo){
+	case 0:
+		emp = empleado_new();
+  		listObj(emp,NULL,true,NULL);
+  		printf("\n----------------------------------\n");
+  		break;
+  	case 1:
+  		p = producto_new();
+  		listObj(p,NULL,true,NULL);
+  		printf("\n----------------------------------\n");
+  		break;
+  	case 2:
+		prov = proveedor_new();
+  		listObj(prov,NULL,true,NULL);
+  		printf("\n----------------------------------\n");
+  		break;
+  	case 3:
+  		o = orden_new();
+  		listObj(o,NULL,true,NULL);
+  		printf("\n----------------------------------\n");
+  		break;
+	case 4:
+		cli = cliente_new();
+  		listObj(cli,NULL,true,NULL);
+  		printf("\n----------------------------------\n");
+		break;
+	case 5:
+		cat = categoria_new();
+  		listObj(cat,NULL,true,NULL);
+  		printf("\n----------------------------------\n");
+  		break;
+  	case 6:
+  		odet = orden_det_new();
+  		listObj(odet,NULL,true,NULL);
+  		printf("\n----------------------------------\n"); 		
+		break;
+  	default:
+  		printf("Se recibio un listado incorrecto\n");
+		printf("\n----------------------------------\n");
+	}
+}
+
