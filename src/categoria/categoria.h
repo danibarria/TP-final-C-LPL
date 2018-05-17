@@ -34,6 +34,7 @@ typedef struct {
     bool isNewObj;
 }obj_categoria;
 
+void add_categoria(char *);/*agrega una categoria a la base de datos*/
 // funcionalidad publica que se implementa en categoria.c
 extern obj_categoria *categoria_new ();
 #endif

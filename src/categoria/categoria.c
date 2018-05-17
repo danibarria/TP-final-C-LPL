@@ -218,3 +218,13 @@ obj_categoria *categoria_new()
   return (obj_categoria *)init_obj(sizeof(obj_categoria),sizeof(t_categoria), col_categoria, CNT_COL_CAT, init_categoria);
 }
 //----------------------------------------------------
+void add_categoria(char *nombre)/*agrega una categoria a la base de datos*/
+{
+//  int salida = -1;
+  obj_categoria *cat;
+  cat = categoria_new();
+  cat->setNombreCategoria(cat, nombre);
+//  salida=
+  cat->saveObj(cat);
+//  return salida;
+}
