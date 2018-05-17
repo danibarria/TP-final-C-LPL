@@ -86,10 +86,9 @@ int main(int argc, char *argv[])
   int i=0,size=0;
   void *list;
   
-<<<<<<< HEAD
  
    add_categoria("Lechoso");
-   add_proveedor();
+   add_proveedor("Lucas", "Lucas@Lucas", "123", "456");
   /*switch(1){
 =======
   result=id_comando(argv[]);

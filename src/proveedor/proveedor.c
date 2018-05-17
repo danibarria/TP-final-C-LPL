@@ -272,15 +272,16 @@ obj_proveedor *proveedor_new()
 //recibe el arreglo de los parametros para utilizar los argumentos necesarios para crear y guardar en la base de datos al proveedor
 //crea al proveedor y le setea los argumentos nombre contacto celu y fijo al proveedor con los argumentos
 // los argumentos tienen que venir en orden y ser del tipo indicado para poder asignarlos en caso incorrecto error salir
-void add_proveedor(char *argumentos[]){
-	obj_proveedor *prov  ,*pv_row;
-	prov = proveedor_new();
-		
-	prov->setNombreProveedor(prov,argumentos[2]);
-	prov->setContacto(prov,argumentos[3]);
-	prov->setCeluProv(prov,argumentos[4]);
-	prov->setFijoProv(prov,argumentos[5]);
-	prov->saveObj(prov);
-	destroyObj(prov);
-	
+
+void add_proveedor(char *nombre,char *contacto,char *celular,char *fijo){
+  obj_proveedor *prov  ,*pv_row;
+  prov = proveedor_new();
+    
+  prov->setNombreProveedor(prov,nombre);
+  prov->setContacto(prov,contacto);
+  prov->setCeluProv(prov,celular);
+  prov->setFijoProv(prov,fijo);
+  prov->saveObj(prov);
+  destroyObj(prov);
+  
 }

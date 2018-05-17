@@ -224,7 +224,8 @@ void add_categoria(char *nombre)/*agrega una categoria a la base de datos*/
   obj_categoria *cat;
   cat = categoria_new();
   cat->setNombreCategoria(cat, nombre);
-//  salida=
   cat->saveObj(cat);
 //  return salida;
 }
+
+
