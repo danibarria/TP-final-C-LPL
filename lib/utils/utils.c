@@ -27,7 +27,7 @@
 
 //#define MAXFECHA 17
  //Instancia que permite manipular conexion con el servidor
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 char* rtrim(char* string, char junk)
 {
     char* original = string + strlen(string);
@@ -35,7 +35,7 @@ char* rtrim(char* string, char junk)
     *(original + 1) = '\0';
     return string;
 }
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 char** fStrSplit(char *str, const char *delimiters)
 {
     char * token; 
@@ -57,7 +57,7 @@ char** fStrSplit(char *str, const char *delimiters)
     tokenArray[count] = NULL;  /* Terminate the array */
     return tokenArray;
 }
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 char* fStrJoin(char **str, const char *delimiters, int sz_opt)
 {
     char *joinedStr;
@@ -82,7 +82,7 @@ char* fStrJoin(char **str, const char *delimiters, int sz_opt)
     }
     return joinedStr;
 }
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 PGconn * connectdb(char *servidor,char *port,char *base,char *usuario,char *password)
 {
    PGconn *conn;
@@ -95,13 +95,13 @@ PGconn * connectdb(char *servidor,char *port,char *base,char *usuario,char *pass
    
    return conn;
  }
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 void disconnectdb(PGconn * conn)
 {   
    /*Cerrar conexion y liberar recurso de conexion con el servidor*/
    PQfinish(conn);
 }
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 char *getFecha()
 {
      char *ffecha;
@@ -111,7 +111,7 @@ char *getFecha()
      snprintf( ffecha, MAXFECHA, "%d-%02d-%02d",tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday);
      return ffecha;
 }
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 char *getFechaHora()
 {
      char *ffecha;
@@ -121,14 +121,14 @@ char *getFechaHora()
      snprintf( ffecha, MAXFECHA, "%d-%02d-%02d %02d:%02d",tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday,tm.tm_hour, tm.tm_min);
      return ffecha;
 }
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 void inicializarArregloInt(int *arreglo, int cantidad, int valor){
     int i;
     for(i = 0; i< cantidad; i++){
         arreglo[i] = valor;
     }
 }
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 
 static char *itoa_simple_helper(char *dest, int i) {
   if (i <= -10) {
@@ -137,7 +137,7 @@ static char *itoa_simple_helper(char *dest, int i) {
   *dest++ = '0' - i%10;
   return dest;
 }
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 
 char *itoa_simple(char *dest, int i) {
   char *s = dest;
@@ -149,14 +149,14 @@ char *itoa_simple(char *dest, int i) {
   *itoa_simple_helper(s, i) = '\0';
   return dest;
 }
-//----------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 
 int startswith(const char *pre, const char *str) {
     size_t lenpre = strlen(pre), lenstr = strlen(str);
     return lenstr < lenpre ? 0 : strncmp(pre, str, lenpre) == 0;
 }
 
-// ---------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 void prepararConsulta(char** consulta, char* valor, char* clave){
 	*consulta = malloc (50*sizeof(char));
 	strncpy(*consulta, valor, strlen(valor)+1);
@@ -164,7 +164,7 @@ void prepararConsulta(char** consulta, char* valor, char* clave){
 	strcat(*consulta, clave);
 }
 
-// --------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 void prepararConsultaString(char** consulta, char* valor, char* clave){
 	*consulta = malloc (50*sizeof(char));
 	strncpy(*consulta, valor, strlen(valor)+1);
@@ -173,7 +173,7 @@ void prepararConsultaString(char** consulta, char* valor, char* clave){
 	strcat(*consulta, "'");
 }
 
-// ---------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 void separarArgumentos(int inicio, char* patronFin, char**argv , int max, char***argumentos, int *cantidad){
 	int i;
 	int aux_cantidad = 0;
@@ -197,7 +197,7 @@ void separarArgumentos(int inicio, char* patronFin, char**argv , int max, char**
 	*cantidad = aux_cantidad;
 }
 
-// --------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 void separarArgumentosProfesional(char **argumentos, int inicio, int maximo, int **argumentos_profesional){
 	int i,j ;
 	int aux_argumentos[3];
@@ -215,7 +215,7 @@ void separarArgumentosProfesional(char **argumentos, int inicio, int maximo, int
 	*argumentos_profesional = aux_argumentos;
 }	
 
-// ----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 void separarArgumentosTurno(char **argumentos, int inicio, int maximo, char ***argumentos_profesional){
 	char *aux_argumentos[2];
 	aux_argumentos[0] = NULL;
@@ -231,14 +231,15 @@ void separarArgumentosTurno(char **argumentos, int inicio, int maximo, char ***a
 	*argumentos_profesional = aux_argumentos;	
 }			
 
-//--------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 void mostrarAyuda(char* argumento){
 	printf("MODO DE USO: [-h] tpfinalc <comando> [<argumentos>]\n");
 } 
-//-------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 
+/*Devuelve el id de la tabla, sino devuelve -1*/
 int id_tabla(char *word){
-  /*Devuelve el id de la tabla, sino devuelve -1*/
+   
   int aux = -1;
   if(!strcmp(word,"empleado")) 
     aux=0; 
@@ -254,7 +255,7 @@ int id_tabla(char *word){
     aux=5; 
   return aux;
 }
-//------------------------__________________________________________________
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 
 int id_comando(char *comando[],int argc) /*muestra id de comando*/
 {
@@ -281,17 +282,7 @@ int id_comando(char *comando[],int argc) /*muestra id de comando*/
   return aux;
 }
 
-
-int crearArchivo(char *nombre){
-   FILE *fd;
-   fd = fopen(nombre, "w+");
-   if(fd == NULL){
-      return 1;
-   }
-   fclose(fd);
-   return 0;
-}
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 void menu(int cant_argumentos,char *argumentos[]){
 	int operacion, tabla;
 	operacion= id_comando(argumentos, cant_argumentos);
@@ -329,11 +320,13 @@ void menu(int cant_argumentos,char *argumentos[]){
          //listar redireccion
          //nombre.exe -l tabla -f archivo
          crearArchivo(argumentos[4]);
+         tabla=id_tabla(argumentos[2]);
+         listarTipoArchivo(tabla,argumentos[4]);
          
          break;
    }
 }
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 void listarTipo(int tipo)	{
   obj_empleado *emp,*e_row;
   obj_categoria *cat,*c_row;
@@ -383,5 +376,67 @@ void listarTipo(int tipo)	{
   		printf("Se recibio un listado incorrecto\n");
 		printf("\n----------------------------------\n");
 	}
+}
+//---------------------------------------------------------------------
+void listarTipoArchivo(int tipo, char *archivo)	{
+  obj_empleado *emp,*e_row;
+  obj_categoria *cat,*c_row;
+  obj_cliente *cli,*cli_row;
+  obj_proveedor *prov  ,*pv_row;
+  obj_producto *p,*p_rw;
+  obj_orden *o;
+  obj_orden_det *odet;
+  	
+	switch(tipo){
+	case 0:
+		emp = empleado_new();
+  		listObjArchivo(emp,NULL,true,NULL,archivo);
+  		printf("\n----------------------------------\n");
+  		break;
+  	case 1:
+  		p = producto_new();
+  		listObjArchivo(p,NULL,true,NULL,archivo);
+  		printf("\n----------------------------------\n");
+  		break;
+  	case 2:
+		prov = proveedor_new();
+  		listObjArchivo(prov,NULL,true,NULL,archivo);
+  		printf("\n----------------------------------\n");
+  		break;
+  	case 3:
+  		o = orden_new();
+  		listObjArchivo(o,NULL,true,NULL,archivo);
+  		printf("\n----------------------------------\n");
+  		break;
+	case 4:
+		cli = cliente_new();
+  		listObjArchivo(cli,NULL,true,NULL,archivo);
+  		printf("\n----------------------------------\n");
+		break;
+	case 5:
+		cat = categoria_new();
+  		listObjArchivo(cat,NULL,true,NULL,archivo);
+  		printf("\n----------------------------------\n");
+  		break;
+  	case 6:
+  		odet = orden_det_new();
+  		listObjArchivo(odet,NULL,true,NULL,archivo);
+  		printf("\n----------------------------------\n"); 		
+		break;
+  	default:
+  		printf("Se recibio un listado incorrecto\n");
+		printf("\n----------------------------------\n");
+	}
+}
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+int crearArchivo(char *nombre){
+   FILE *fd;
+   
+   fd = fopen(nombre, "w+");
+   if(fd == NULL){
+      return 1;
+   }
+   fclose(fd);
+   return 0;
 }
 

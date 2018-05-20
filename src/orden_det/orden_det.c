@@ -8,7 +8,7 @@
 /// referenciar a la estructua de la cual se va a crear instancia
 #include "../producto/producto.h"
 #include "../orden/orden.h"
-
+#define MAXLINE 200
 //columnas de la tabla: orden_det
 static const char *campos = "orden_id,detalle_id,producto_id,cantidad";
 static const char *tabla = "detalle_ordenes";
@@ -173,6 +173,37 @@ void showObj_orden_detImpl(void *self)
    printf("orden_id: %d - detalle_id: %d - producto_id:%d  cantidad: %d\n",p->orden_id,p->detalle_id,p->producto_id,p->cantidad);
 }
 //----------------------------------------------------
+void showObj_orden_detImplArchivo(void *self,FILE *fd)
+{
+     obj_orden_det *self_o=this(self);
+     obj_orden_det *sup; 
+     
+     char auxiliar[5];
+     char linea_armada[MAXLINE];
+     char *modelo1 = "orden_id: ";
+     char *modelo2 = " detalle_id: ";
+     char *modelo3 = " producto_id: ";
+     char *modelo4 = " cantidad: ";
+     strcpy(linea_armada, modelo1);
+     itoa(self_o->orden_id,auxiliar,10);
+     
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo2);
+     itoa(self_o->detalle_id,auxiliar,10);    
+     strcat(linea_armada, auxiliar);   
+     strcat(linea_armada, modelo3);
+     itoa(self_o->producto_id,auxiliar,10);    
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo4);
+     itoa(self_o->cantidad,auxiliar,10);    
+     strcat(linea_armada, auxiliar); 
+     
+     strcat(linea_armada, "\n");
+
+      fputs(linea_armada, fd);
+}
+//----------------------------------------------------
+
 //implementacion de getters
 int getOrdenId_Impl_OrdenDel(void *self)
 { 
@@ -239,6 +270,7 @@ void *init_orden_det(void *self, data_set *ds)
   obj->findAll =   findAll_orden_detImpl;
   obj->saveObj =   saveObj_orden_detImpl; 
   obj->showObj =   showObj_orden_detImpl;  
+  obj->showObjArchivo =   showObj_orden_detImplArchivo;
   //relaciones
   
   return obj;

@@ -153,3 +153,30 @@ void listObj(void *objList, char *criteria, int freeObj, void(*lstFunc)(void *o)
 		destroyObj(objList);
 	}
 }
+//----------------------------------------------------------------------------------------------------------------------------------------------
+void listObjArchivo(void *objList, char *criteria, int freeObj, void(*lstFunc)(void *o), char *archivo)
+{
+   FILE * fd;
+   fd = fopen (archivo,"w+");
+
+   t_object *obj = (t_object *)objList;
+	int i=0,size=0;
+	void *list;
+	t_object *rw;
+    size = obj->findAll(obj,&list,NULL);
+	for(i=0;i<size;++i)
+	{
+		rw = ((t_object **)list)[i];
+		if(lstFunc!=NULL)
+			lstFunc(rw);
+		else
+  		    rw->showObjArchivo(rw,fd);
+	}
+	if(freeObj)
+	{
+		destroyObjList(list,size);
+		destroyObj(objList);
+	}
+	
+	fclose(fd);
+}

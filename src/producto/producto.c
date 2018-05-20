@@ -8,7 +8,7 @@
 /// referenciar a la estructua de la cual se va a crear instancia
 #include "../proveedor/proveedor.h"
 #include "../categoria/categoria.h"
-
+#define MAXLINE 400
 //columnas de la tabla: producto
 static const char *campos = "producto_id,proveedor_id,categoria_id,descripcion,precio_unit,existencia";
 static const char *tabla = "productos";
@@ -188,6 +188,44 @@ void showObj_productoImpl(void *self)
    printf("producto_id: %d - proveedor_id: %d - categoria:%s  Descripcion: %s precio_unit: %.2f  existencia: %d\n",p->producto_id,p->proveedor_id,cat->getNombreCategoria(cat),p->descripcion,p->precio_unit,p->existencia);
 }
 //----------------------------------------------------
+void showObj_productoImplArchivo(void *self,FILE *fd)
+{
+     obj_producto *self_o=this(self);
+     obj_producto *sup;
+     obj_categoria *cat = self_o->getCategoriaObj(self_o); 
+     
+     char auxiliar[5];
+     char linea_armada[MAXLINE];
+     char *modelo1 = "producto_id: ";
+     char *modelo2 = " proveedor_id: ";
+     char *modelo3 = " categoria_id: ";
+     char *modelo4 = " Descripcion: ";
+     char *modelo5 = " precio_unit: ";
+     char *modelo6 = " existencia: ";
+     strcpy(linea_armada, modelo1);
+     itoa(self_o->producto_id,auxiliar,10);
+     
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo2);    
+     itoa(self_o->proveedor_id,auxiliar,10);
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo3);    
+     strcat(linea_armada, cat->getNombreCategoria(cat));
+     strcat(linea_armada, modelo4);    
+     strcat(linea_armada, self_o->descripcion);
+     strcat(linea_armada, modelo5);    
+     sprintf(auxiliar,"%f",self_o->precio_unit);
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo6);    
+     itoa(self_o->existencia,auxiliar,10);
+     strcat(linea_armada, auxiliar);
+         
+     strcat(linea_armada, "\n");
+
+      fputs(linea_armada, fd);
+}
+//----------------------------------------------------
+
 //implementacion de getters
 int getProductoId_Impl(void *self)
 { 
@@ -298,6 +336,7 @@ void *init_producto(void *self, data_set *ds)
   obj->findAll =   findAll_productoImpl;
   obj->saveObj =   saveObj_productoImpl; 
   obj->showObj =   showObj_productoImpl;
+  obj->showObjArchivo =   showObj_productoImplArchivo;
   obj->destroyInternal = destroyInternal_Impl;
   obj->getCategoriaObj = getCategoriaObjImpl;
   //relaciones

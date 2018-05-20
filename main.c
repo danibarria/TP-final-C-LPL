@@ -1,3 +1,4 @@
+//ELIMINAR INCLUDES QUE NO SE UTILIZAN EN EL MAIN
 #include <stdio.h>
 #include <stdlib.h>
 #include <libpq-fe.h> 
@@ -20,14 +21,13 @@
 #include "src/orden/orden.h"
 #include "src/orden_det/orden_det.h"
 
+//BUENA REFERENCIA PARA CREAR LA FUNCION QUE LISTE UNA TABLA EN UN ARCHIVO
 void cli_show(void *c)
 {
   obj_cliente *cli = (obj_cliente*)c;
      printf("ID:%d\n",cli->getClienteId(cli));
 }
  
-
-
 int main(int argc, char *argv[])
 {
    //add_categoria("Lechoso");

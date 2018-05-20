@@ -5,6 +5,7 @@
 #include "../../lib/utils/utils.h"
 #include "../../lib/orm/orm.h"
 #include "categoria.h"
+#define MAXLINE 200
 
 //columnas de la tabla: categoria
 static const char *campos = "categoria_id,nombre_categoria";
@@ -171,6 +172,27 @@ void showObj_categoriaImpl(void *self)
      printf("categoria_id: %d  categoria:%s \n",self_o->categoria_id,self_o->nombre_categoria);
 }
 //----------------------------------------------------
+void showObj_categoriaImplArchivo(void *self,FILE *fd)
+{
+     obj_categoria *self_o=this(self);
+     obj_categoria *sup; 
+     
+     char auxiliar[5];
+     char linea_armada[MAXLINE];
+     char *modelo1 = "categoria id: ";
+     char *modelo2 = " categoria:";
+     
+     strcpy(linea_armada, modelo1);
+     itoa(self_o->categoria_id,auxiliar,10);
+     
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo2);    
+     strcat(linea_armada, self_o->nombre_categoria);    
+     strcat(linea_armada, "\n");
+
+      fputs(linea_armada, fd);
+}
+//----------------------------------------------------
 //implementacion de getters
 int getCategoriaId_Impl(void *self)
 { 
@@ -198,18 +220,22 @@ void *init_categoria(void *self, data_set *ds)
   obj = (obj_categoria *)self; 
   obj->ds = ds;
   obj->isNewObj = true;//marcar como objeto nuevo, si se instancia
+  
   // Inicializar handlers de getters y setters
   /// getters
   obj->getCategoriaId  	  = getCategoriaId_Impl;
   obj->getNombreCategoria = getNombreCategoria_Impl;  
+  
   /// setters  
   obj->setNombreCategoria = setNombreCategoria_Impl;  
+  
   //incializacion de la interfaz de la entidad
   obj->getIsNewObj =   getIsNewObj_Impl;
   obj->findbykey = find_categoriaImpl;
   obj->findAll =   findAll_categoriaImpl;
   obj->saveObj =   saveObj_categoriaImpl; 
-  obj->showObj =   showObj_categoriaImpl;      
+  obj->showObj =   showObj_categoriaImpl;  
+  obj->showObjArchivo =     showObj_categoriaImplArchivo;
   return obj;
 }
 //----------------------------------------------------
@@ -220,12 +246,12 @@ obj_categoria *categoria_new()
 //----------------------------------------------------
 void add_categoria(char *nombre)/*agrega una categoria a la base de datos*/
 {
-//  int salida = -1;
   obj_categoria *cat;
   cat = categoria_new();
+  
   cat->setNombreCategoria(cat, nombre);
+  
   cat->saveObj(cat);
-//  return salida;
 }
 
 

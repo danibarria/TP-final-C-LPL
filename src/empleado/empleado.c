@@ -5,7 +5,7 @@
 #include "../../lib/utils/utils.h"
 #include "../../lib/orm/orm.h"
 #include "empleado.h"
-
+#define MAXLINE 200
 //columnas de la tabla: empleado
 static const char *campos = "empleado_id,fecha_nac,nombre,apellido,reporta_a,extension";
 static const char *tabla = "empleados";
@@ -199,7 +199,43 @@ void showObj_empleadoImpl(void *self)
         strcpy(supervisor,"-sin supervisor-");
    printf("empleado_id: %d  Apellido y nombre:%s reporta_a: %s  extension: %d\n",self_o->empleado_id,self_o->apellido_nombre(self_o),supervisor,self_o->extension);
 }
+
 //----------------------------------------------------
+void showObj_empleadoImplArchivo(void *self,FILE *fd)
+{
+     obj_empleado *self_o=this(self);
+     obj_empleado *sup; 
+     char supervisor[MAX];
+     char auxiliar[5];
+     char linea_armada[MAXLINE];
+     char *modelo1 = "empleado_id: ";
+     char *modelo2 = " Apellido y nombre:";
+     char *modelo3 = " reporta_a: ";
+     char *modelo4 = " extension: ";
+     
+     if(self_o->reporta_a>0)
+     {
+        sup = (obj_empleado*)self_o->get_Supervisor(self);
+        strcpy(supervisor , sup->apellido_nombre(sup));
+     }
+     
+     strcpy(linea_armada, modelo1);
+     itoa(self_o->empleado_id,auxiliar,10);
+     
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo2);    
+     strcat(linea_armada, self_o->apellido_nombre(self_o));
+     strcat(linea_armada, modelo3);
+     strcat(linea_armada, supervisor);
+     strcat(linea_armada, modelo4);      
+     itoa(self_o->empleado_id,auxiliar,10);  
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, "\n");
+
+      fputs(linea_armada, fd);
+}
+//----------------------------------------------------
+
 void *getSupervisor_empleadoImpl(void *self)
 {
 	obj_empleado* o;
@@ -318,6 +354,7 @@ void *init_empleado(void *self, data_set *ds)
   obj->findAll =   findAll_empleadoImpl;
   obj->saveObj =   saveObj_empleadoImpl; 
   obj->showObj =   showObj_empleadoImpl;
+  obj->showObjArchivo =   showObj_empleadoImplArchivo;
   obj->apellido_nombre = nombreyApellido_empleadoImpl;
   //relaciones
   obj->get_Supervisor = (void *)getSupervisor_empleadoImpl;

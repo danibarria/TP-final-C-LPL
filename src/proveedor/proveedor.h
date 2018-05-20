@@ -23,7 +23,8 @@ typedef struct {
     data_set *ds;
     int  (*findAll)(void *self, void **list,char *criteria); 
     void (*showObj)(void *self);
-	bool (*getIsNewObj)(void *self);
+   void (*showObjArchivo)(void *self,FILE *fd);	
+   bool (*getIsNewObj)(void *self);
     int  (*saveObj)(void *self);
 	void (*destroyInternal)(void *self);
     int  (*findbykey)(void *self,int proveedor_id);
@@ -48,11 +49,10 @@ typedef struct {
     bool isNewObj;
 }obj_proveedor;
 
+//FUNCIONALIDAD QUE AGREGA UN PROVEEDOR A LA BASE DE DATOS
+void add_proveedor(char *,char *, char *, char*);
+
 // funcionalidad publica que se implementa en proveedor.c
 extern obj_proveedor *proveedor_new();
 
 #endif
-
-//funcinalidad de proveeor para guardarlo en la base de datos
-void add_proveedor(char *,char *, char *, char*);
-
