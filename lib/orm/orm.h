@@ -9,6 +9,7 @@ typedef struct
  data_set *ds;
  int  (*findAll)(void *self, void **list,char *criteria);
  void (*showObj)(void *self);
+ void (*showObjArchivo)(void *self,FILE *fd);
  bool (*getIsNewObj)(void *self);
  int  (*saveObj)(void *self);
  void (*destroyInternal)(void *self);
@@ -21,6 +22,7 @@ int findAllImpl(void *,void **, char *, const char *, const char *, size_t, void
 char *getFindSQL(const char *, const char *, char *);
 void *init_obj(size_t, size_t, const char **, int, void*(*)(void *, data_set *));
 void listObj(void *objList, char *criteria, int freeObj,void(*lstFunc)(void *o));
+void listObjArchivo(void *objList, char *criteria, int freeObj,void(*lstFunc)(void *o),char *archivo);
 void destroyObj(void *);
 void destroyObjList(void **,int);
 // Implementacion en "utils.c"

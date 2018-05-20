@@ -1,0 +1,7 @@
+empleado_id: 1 Apellido y nombre:CRUZ, JUAN reporta_a:  extension: 1
+empleado_id: 2 Apellido y nombre:SANCHEZ, MARIO reporta_a: CRUZ, JUAN extension: 2
+empleado_id: 3 Apellido y nombre:ARIAS, VERONICA reporta_a: CRUZ, JUAN extension: 3
+empleado_id: 4 Apellido y nombre:CELY, PABLO reporta_a: SANCHEZ, MARIO extension: 4
+empleado_id: 5 Apellido y nombre:ANDRADE, DIEGO reporta_a: SANCHEZ, MARIO extension: 5
+empleado_id: 6 Apellido y nombre:ANDRADE, JUAN reporta_a: ARIAS, VERONICA extension: 6
+empleado_id: 7 Apellido y nombre:NOBOA, MARIA reporta_a: ARIAS, VERONICA extension: 7

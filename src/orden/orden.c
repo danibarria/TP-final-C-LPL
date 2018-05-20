@@ -8,7 +8,7 @@
 /// referenciar a la estructua de la cual se va a crear instancia
 #include "../empleado/empleado.h"
 #include "../cliente/cliente.h"
-
+#define MAXLINE 200
 //columnas de la tabla: orden
 static const char *campos = "orden_id,empleado_id,cliente_id,fecha_orden,descuento";
 static const char *tabla = "ordenes";
@@ -186,6 +186,42 @@ void showObj_ordenImpl(void *self)
    printf("orden_id: %d - empleado_id: %d - cliente_id:%d  fecha orden: %s descuento: %d\n",p->orden_id,p->empleado_id,p->cliente_id,p->fecha_orden,p->descuento);
 }
 //----------------------------------------------------
+void showObj_ordenImplArchivo(void *self,FILE *fd)
+{
+     obj_orden *self_o=this(self);
+     obj_orden *sup; 
+     
+     char auxiliar[5];
+     char linea_armada[MAXLINE];
+     char *modelo1 = "orden_id: ";
+     char *modelo2 = " empleado_id: ";
+     char *modelo3 = " cliente_id: ";
+     char *modelo4 = " fecha orden: ";
+     char *modelo5 = " descuento: ";
+     strcpy(linea_armada, modelo1);
+     itoa(self_o->orden_id,auxiliar,10);
+     
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo2);    
+     itoa(self_o->empleado_id,auxiliar,10);
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo3);    
+     itoa(self_o->cliente_id,auxiliar,10);
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo4);    
+     strcat(linea_armada, self_o->fecha_orden);
+     strcat(linea_armada, modelo4);    
+     strcat(linea_armada, self_o->fecha_orden);
+     strcat(linea_armada, modelo5); 
+     itoa(self_o->descuento,auxiliar,10);   
+     strcat(linea_armada, auxiliar);
+     
+     strcat(linea_armada, "\n");
+
+      fputs(linea_armada, fd);
+}
+//----------------------------------------------------
+
 //implementacion de getters
 int getOrdenId_Impl(void *self)
 { 
@@ -284,6 +320,7 @@ void *init_orden(void *self, data_set *ds)
   obj->findAll =   findAll_ordenImpl;
   obj->saveObj =   saveObj_ordenImpl; 
   obj->showObj =   showObj_ordenImpl;
+  obj->showObjArchivo =   showObj_ordenImplArchivo;
   obj->getEmpleadoObj = getEmpleadoObj_Impl;
   obj->destroyInternal = destroyInternal_Impl;
   //relaciones

@@ -18,6 +18,7 @@ static const char *strSQL_INSERT_Param = "'%s','%s','%s','%s','%s','%s','%s','%s
 static const char *strSQL_UPDATE = "update clientes set %s where %s;";
 static const char *strSQL_UPDATE_Param ="cedula_ruc = '%s', nombre_contacto ='%s', nombre_cia = '%s', dir_cliente='%s', fax='%s'";
 
+#define MAXLINE 200
 //----------------------------------------------------
 //Obtener la cadena SQL para con uso de la clave
 static char *getKey(int k,char *where)
@@ -192,6 +193,30 @@ void showObj_clientesImpl(void *self)
    printf("cliente_id: %d  Nombre cia:%s dir_cliente: %s\n",self_o->cliente_id,self_o->nombre_cia,self_o->dir_cliente);
 }
 //----------------------------------------------------
+void showObj_clientesImplArchivo(void *self,FILE *fd)
+{
+     obj_cliente *self_o=this(self);
+     obj_cliente *sup; 
+     
+     char auxiliar[5];
+     char linea_armada[MAXLINE];
+     char *modelo1 = "cliente_id: ";
+     char *modelo2 = " Nombre cia:";
+     char *modelo3 = " dir_clientes: ";
+     
+     strcpy(linea_armada, modelo1);
+     itoa(self_o->cliente_id,auxiliar,10);
+     
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo2);    
+     strcat(linea_armada, self_o->nombre_cia);
+     strcat(linea_armada, modelo3);
+     strcat(linea_armada, self_o->dir_cliente);        
+     strcat(linea_armada, "\n");
+
+      fputs(linea_armada, fd);
+}
+//----------------------------------------------------
 //implementacion de getters
 int getClienteId_Impl(void *self)
 { 
@@ -328,7 +353,7 @@ void *init_cliente(void *self, data_set *ds)
   obj->findAll =   findAll_clientesImpl;
   obj->saveObj =   saveObj_clientesImpl; 
   obj->showObj =   showObj_clientesImpl;
-  
+  obj->showObjArchivo = showObj_clientesImplArchivo;
   //relaciones
   
   return obj;

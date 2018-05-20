@@ -24,7 +24,8 @@ typedef struct {
     data_set *ds;
     int (*findAll)(void *self, void **list,char *criteria); 
     void (*showObj)(void *self);
-	bool (*getIsNewObj)(void *self);
+	 void (*showObjArchivo)(void *self,FILE *archivo);
+   bool (*getIsNewObj)(void *self);
     int (*saveObj)(void *self);
 	void (*destroyInternal)(void *self);
     int (*findbykey)(void *self,int producto_id);

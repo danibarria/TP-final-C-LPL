@@ -5,7 +5,7 @@
 #include "../../lib/utils/utils.h"
 #include "../../lib/orm/orm.h"
 #include "proveedor.h"
-
+#define MAXLINE 200
 //columnas de la tabla: proveedor
 static const char *campos = "proveedor_id,nombre_proveedor,contacto,celu_prov,fijo_prov";
 static const char *tabla = "proveedores";
@@ -179,6 +179,36 @@ void showObj_proveedorImpl(void *self)
      printf("proveedor_id: %d  Nombre: %s Contacto: %s fijo_prov: %s  celu_prov: %s\n",p->proveedor_id,p->nombre_proveedor,p->contacto,p->fijo_prov,p->celu_prov);
 }
 //----------------------------------------------------
+void showObj_proveedorImplArchivo(void *self,FILE *fd)
+{
+     obj_proveedor *self_o=this(self);
+     obj_proveedor *sup; 
+     
+     char auxiliar[5];
+     char linea_armada[MAXLINE];
+     char *modelo1 = "proveedor_id: ";
+     char *modelo2 = " nombre:";
+     char *modelo3 = " contacto:";
+     char *modelo4 = " fijo_prov: ";
+     char *modelo5 = " celu_prov: ";
+     strcpy(linea_armada, modelo1);
+     itoa(self_o->proveedor_id,auxiliar,10);
+     
+     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, modelo2);    
+     strcat(linea_armada, self_o->nombre_proveedor);    
+     strcat(linea_armada, modelo3);    
+     strcat(linea_armada, self_o->contacto);
+     strcat(linea_armada, modelo4);    
+     strcat(linea_armada, self_o->fijo_prov);
+     strcat(linea_armada, modelo5);    
+     strcat(linea_armada, self_o->celu_prov);
+     
+     strcat(linea_armada, "\n");
+
+      fputs(linea_armada, fd);
+}
+//----------------------------------------------------
 //implementacion de getters
 int getProveedorId_Impl(void *self)
 { 
@@ -259,6 +289,7 @@ void *init_proveedor(void *self, data_set *ds)
   obj->findAll =   findAll_proveedorImpl;
   obj->saveObj =   saveObj_proveedorImpl; 
   obj->showObj =   showObj_proveedorImpl;
+  obj->showObjArchivo =   showObj_proveedorImplArchivo;
   //relaciones
   
   return obj;
@@ -269,9 +300,9 @@ obj_proveedor *proveedor_new()
   return (obj_proveedor *)init_obj(sizeof(obj_proveedor),sizeof(t_proveedor), col_proveedor, CNT_COL_PROV, init_proveedor);
 }
 
-//recibe el arreglo de los parametros para utilizar los argumentos necesarios para crear y guardar en la base de datos al proveedor
-//crea al proveedor y le setea los argumentos nombre contacto celu y fijo al proveedor con los argumentos
-// los argumentos tienen que venir en orden y ser del tipo indicado para poder asignarlos en caso incorrecto error salir
+/* Recibe un 4 argumentos que representan nombre contacto celular y fijo del proveedor, estos argumntos son los que se van a guardar en el 
+proveedor nuevo. Se crea al proveedor y le setea los argumentos nombre contacto celu y fijo al proveedor con los argumentos
+los argumentos tienen que venir en orden y ser del tipo indicado para poder asignarlos */
 
 void add_proveedor(char *nombre,char *contacto,char *celular,char *fijo){
   obj_proveedor *prov;
@@ -284,5 +315,4 @@ void add_proveedor(char *nombre,char *contacto,char *celular,char *fijo){
   
   prov->saveObj(prov);
   prov->showObj(prov);
-  
 }
