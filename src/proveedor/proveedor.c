@@ -265,6 +265,7 @@ void setFijoProv_Impl(void *self,char *fijo_prov)
 	strcpy(obj->fijo_prov , fijo_prov);	
 }
 //----------------------------------------------------
+
 void *init_proveedor(void *self, data_set *ds)
 {
   obj_proveedor *obj;

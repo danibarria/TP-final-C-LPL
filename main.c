@@ -27,10 +27,14 @@ void cli_show(void *c)
   obj_cliente *cli = (obj_cliente*)c;
      printf("ID:%d\n",cli->getClienteId(cli));
 }
- 
+ /*
+   COSAS QUE AUN FALTAN:
+   1) falta implementar una forma de saber cuando se debe listar las ordenes con los detalles
+   2)falta implementar las relaciones de las tablas que tenga
+   3) 
+*/ 
 int main(int argc, char *argv[])
 {
-   //add_categoria("Lechoso");
    //add_proveedor("Lucas", "Lucas@Lucas", "123", "456");
    menu(argc, argv);  
    system("PAUSE");	

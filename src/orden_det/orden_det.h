@@ -32,6 +32,7 @@ typedef struct {
     int (*getOrdenId)(void *self);
     int (*getDetalleId)(void *self);
     int (*getProductoId)(void *self);
+    int (*getProductoObj)(void *self);
     int (*getCantidad)(void *self);
     //-- setters
     void (*setDetalleId)(void *self,int orden_id);

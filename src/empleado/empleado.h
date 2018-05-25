@@ -35,6 +35,9 @@ typedef struct {
     char *(*getFechaNac)(void *self);
     char *(*getNombre)(void *self);
     char *(*getApellido)(void *self);
+    
+    char *(*getNombreApellido)(void *self);
+    
     int (*getReportaA)(void *self);
     int (*getExtension)(void *self);
     //-- setters

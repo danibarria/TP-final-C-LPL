@@ -169,35 +169,31 @@ int saveObj_orden_detImpl(void *self)
 void showObj_orden_detImpl(void *self)
 {
      obj_orden_det *p=this(self);
-   
-   printf("orden_id: %d - detalle_id: %d - producto_id:%d  cantidad: %d\n",p->orden_id,p->detalle_id,p->producto_id,p->cantidad);
+     obj_producto *pro= p->getProductoObj(p);
+     printf("  detalle_id: %d - producto: %s  cantidad: %d\n",p->detalle_id,pro->getDescripcion(pro),p->cantidad);
 }
 //----------------------------------------------------
 void showObj_orden_detImplArchivo(void *self,FILE *fd)
 {
-     obj_orden_det *self_o=this(self);
-     obj_orden_det *sup; 
+     obj_orden_det *self_o=this(self); 
+     obj_producto *pro= self_o->getProductoObj(self_o);
      
      char auxiliar[5];
      char linea_armada[MAXLINE];
-     char *modelo1 = "orden_id: ";
-     char *modelo2 = " detalle_id: ";
-     char *modelo3 = " producto_id: ";
+     //char *modelo1 = "orden_id: ";
+     char *modelo2 = "detalle_id: ";
+     char *modelo3 = " producto: ";
      char *modelo4 = " cantidad: ";
-     strcpy(linea_armada, modelo1);
+     strcpy(linea_armada, modelo2);
      itoa(self_o->orden_id,auxiliar,10);
+     strcat(linea_armada, auxiliar);
      
-     strcat(linea_armada, auxiliar);
-     strcat(linea_armada, modelo2);
-     itoa(self_o->detalle_id,auxiliar,10);    
-     strcat(linea_armada, auxiliar);   
      strcat(linea_armada, modelo3);
-     itoa(self_o->producto_id,auxiliar,10);    
-     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, pro->getDescripcion(pro));
+        
      strcat(linea_armada, modelo4);
      itoa(self_o->cantidad,auxiliar,10);    
-     strcat(linea_armada, auxiliar); 
-     
+     strcat(linea_armada, auxiliar);
      strcat(linea_armada, "\n");
 
       fputs(linea_armada, fd);
@@ -222,6 +218,16 @@ int getProductoId_Impl_OrdenDel(void *self)
 	obj_orden_det *obj = this(self);
 	return obj->producto_id;	
 }
+
+//----------------------------------------------------
+void *getProductoObjImpl_OrdenDel(void *self)
+{
+     obj_orden_det *obj = this(self);
+     obj_producto *pro;
+     pro = producto_new();
+     pro->findbykey(pro,obj->producto_id);
+     return pro;
+ }
 //----------------------------------------------------
 int getCantidad_Impl(void *self)
 {
@@ -260,6 +266,7 @@ void *init_orden_det(void *self, data_set *ds)
   obj->getDetalleId = getDetalleId_Impl;
   obj->getProductoId = getProductoId_Impl_OrdenDel;
   obj->getCantidad  = getCantidad_Impl;
+  obj->getProductoObj = getProductoObjImpl_OrdenDel;
   /// setters
   obj->setDetalleId = setDetalleId_Impl;
   obj->setProductoId = setProductoId_Impl;

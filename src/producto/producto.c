@@ -185,14 +185,16 @@ void showObj_productoImpl(void *self)
 {
    obj_producto *p=this(self);
    obj_categoria *cat = p->getCategoriaObj(p);
-   printf("producto_id: %d - proveedor_id: %d - categoria:%s  Descripcion: %s precio_unit: %.2f  existencia: %d\n",p->producto_id,p->proveedor_id,cat->getNombreCategoria(cat),p->descripcion,p->precio_unit,p->existencia);
+   obj_proveedor *prov = p->getProveedorObj(p); 
+   printf("producto_id: %d - proveedor_id: %s - categoria:%s  Descripcion: %s precio_unit: %.2f  existencia: %d\n",p->producto_id,prov->getNombreProveedor(prov),cat->getNombreCategoria(cat),p->descripcion,p->precio_unit,p->existencia);
 }
 //----------------------------------------------------
 void showObj_productoImplArchivo(void *self,FILE *fd)
 {
      obj_producto *self_o=this(self);
      obj_producto *sup;
-     obj_categoria *cat = self_o->getCategoriaObj(self_o); 
+     obj_categoria *cat = self_o->getCategoriaObj(self_o);
+     obj_proveedor *prov = self_o->getProveedorObj(self_o);  
      
      char auxiliar[5];
      char linea_armada[MAXLINE];
@@ -207,8 +209,7 @@ void showObj_productoImplArchivo(void *self,FILE *fd)
      
      strcat(linea_armada, auxiliar);
      strcat(linea_armada, modelo2);    
-     itoa(self_o->proveedor_id,auxiliar,10);
-     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, prov->getNombreProveedor(prov));
      strcat(linea_armada, modelo3);    
      strcat(linea_armada, cat->getNombreCategoria(cat));
      strcat(linea_armada, modelo4);    
@@ -308,6 +309,15 @@ void *getCategoriaObjImpl(void *self)
      return cat;
  }
 //----------------------------------------------------
+void *getProveedorObjImpl(void *self)
+{
+     obj_producto *obj = this(self);
+     obj_proveedor *prov;
+     prov = proveedor_new();
+     prov->findbykey(prov,obj->proveedor_id);
+     return prov;
+ }
+//----------------------------------------------------
 void *init_producto(void *self, data_set *ds)
 {
   obj_producto *obj = this(self);  
@@ -338,7 +348,9 @@ void *init_producto(void *self, data_set *ds)
   obj->showObj =   showObj_productoImpl;
   obj->showObjArchivo =   showObj_productoImplArchivo;
   obj->destroyInternal = destroyInternal_Impl;
+  
   obj->getCategoriaObj = getCategoriaObjImpl;
+  obj->getProveedorObj = getProveedorObjImpl; 
   //relaciones
   
   return obj;
