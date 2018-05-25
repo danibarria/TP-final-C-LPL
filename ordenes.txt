@@ -1,0 +1,81 @@
+orden_id: 1 empleado: ARIAS, VERONICA cliente: SU TIENDA fecha orden: 2007-06-17 descuento: 5
+detalle_id: 1 producto: SALCHICHAS VIENESAS cantidad: 2
+detalle_id: 1 producto: SALCHICHAS DE POLLO cantidad: 1
+detalle_id: 1 producto: YOGURT NATURAL cantidad: 1
+detalle_id: 1 producto: CREMA DE LECHE cantidad: 1
+orden_id: 2 empleado: ARIAS, VERONICA cliente: SU TIENDA fecha orden: 2007-06-02 descuento: 10
+detalle_id: 2 producto: BASE DE MAQUILLAJE cantidad: 10
+detalle_id: 2 producto: SOMBRA DE OJOS cantidad: 20
+orden_id: 3 empleado: CELY, PABLO cliente: SUPERMERCADO DORADO fecha orden: 2007-06-05 descuento: 6
+detalle_id: 3 producto: BOTON PARA ASADO cantidad: 10
+orden_id: 4 empleado: SANCHEZ, MARIO cliente: MI COMISARIATO fecha orden: 2007-06-06 descuento: 2
+detalle_id: 4 producto: CREMA DE LECHE cantidad: 12
+orden_id: 5 empleado: SANCHEZ, MARIO cliente: SUPERMERCADO DESCUENTO fecha orden: 2007-06-09 descuento: 0
+detalle_id: 5 producto: SALCHICHAS VIENESAS cantidad: 14
+detalle_id: 5 producto: SALCHICHAS DE POLLO cantidad: 20
+orden_id: 6 empleado: CELY, PABLO cliente: SUPERMERCADO DORADO fecha orden: 2007-06-12 descuento: 10
+detalle_id: 6 producto: BOTON PARA ASADO cantidad: 12
+orden_id: 7 empleado: SANCHEZ, MARIO cliente: SUPERMERCADO DORADO fecha orden: 2007-06-14 descuento: 10
+detalle_id: 7 producto: RIMMEL cantidad: 10
+orden_id: 8 empleado: ARIAS, VERONICA cliente: EL ROSADO fecha orden: 2007-06-13 descuento: 10
+detalle_id: 8 producto: SALAMI DE AJO cantidad: 10
+detalle_id: 8 producto: JAMON DE POLLO cantidad: 14
+detalle_id: 8 producto: LECHE CHOCOLATE cantidad: 10
+orden_id: 9 empleado: ARIAS, VERONICA cliente: EL ROSADO fecha orden: 2007-06-17 descuento: 3
+detalle_id: 9 producto: RIMMEL cantidad: 10
+orden_id: 10 empleado: SANCHEZ, MARIO cliente: EL ROSADO fecha orden: 2007-06-18 descuento: 2
+detalle_id: 10 producto: SALCHICHAS VIENESAS cantidad: 5
+orden_id: 101 empleado: ARIAS, VERONICA cliente: SU TIENDA fecha orden: 2007-07-17 descuento: 5
+detalle_id: 101 producto: SALCHICHAS VIENESAS cantidad: 32
+detalle_id: 101 producto: SALCHICHAS DE POLLO cantidad: 31
+detalle_id: 101 producto: YOGURT NATURAL cantidad: 31
+detalle_id: 101 producto: CREMA DE LECHE cantidad: 31
+orden_id: 102 empleado: ARIAS, VERONICA cliente: SU TIENDA fecha orden: 2007-07-02 descuento: 10
+detalle_id: 102 producto: BASE DE MAQUILLAJE cantidad: 310
+detalle_id: 102 producto: SOMBRA DE OJOS cantidad: 320
+orden_id: 103 empleado: CELY, PABLO cliente: SUPERMERCADO DORADO fecha orden: 2007-07-05 descuento: 6
+detalle_id: 103 producto: BOTON PARA ASADO cantidad: 310
+orden_id: 104 empleado: SANCHEZ, MARIO cliente: MI COMISARIATO fecha orden: 2007-07-06 descuento: 2
+detalle_id: 104 producto: CREMA DE LECHE cantidad: 312
+orden_id: 105 empleado: SANCHEZ, MARIO cliente: SUPERMERCADO DESCUENTO fecha orden: 2007-07-09 descuento: 0
+detalle_id: 105 producto: SALCHICHAS VIENESAS cantidad: 314
+detalle_id: 105 producto: SALCHICHAS DE POLLO cantidad: 320
+orden_id: 106 empleado: CELY, PABLO cliente: SUPERMERCADO DORADO fecha orden: 2007-07-12 descuento: 10
+detalle_id: 106 producto: BOTON PARA ASADO cantidad: 312
+orden_id: 107 empleado: SANCHEZ, MARIO cliente: SUPERMERCADO DORADO fecha orden: 2007-07-14 descuento: 10
+detalle_id: 107 producto: RIMMEL cantidad: 310
+orden_id: 108 empleado: ARIAS, VERONICA cliente: EL ROSADO fecha orden: 2007-07-13 descuento: 10
+detalle_id: 108 producto: SALAMI DE AJO cantidad: 130
+detalle_id: 108 producto: JAMON DE POLLO cantidad: 134
+detalle_id: 108 producto: LECHE CHOCOLATE cantidad: 310
+orden_id: 109 empleado: ARIAS, VERONICA cliente: EL ROSADO fecha orden: 2007-07-17 descuento: 3
+detalle_id: 109 producto: RIMMEL cantidad: 310
+orden_id: 110 empleado: SANCHEZ, MARIO cliente: EL ROSADO fecha orden: 2007-07-18 descuento: 2
+detalle_id: 110 producto: SALCHICHAS VIENESAS cantidad: 35
+orden_id: 201 empleado: ARIAS, VERONICA cliente: SU TIENDA fecha orden: 2008-07-17 descuento: 5
+detalle_id: 201 producto: SALCHICHAS VIENESAS cantidad: 22
+detalle_id: 201 producto: SALCHICHAS DE POLLO cantidad: 21
+detalle_id: 201 producto: YOGURT NATURAL cantidad: 21
+detalle_id: 201 producto: CREMA DE LECHE cantidad: 21
+orden_id: 202 empleado: ARIAS, VERONICA cliente: SU TIENDA fecha orden: 2008-07-02 descuento: 10
+detalle_id: 202 producto: BASE DE MAQUILLAJE cantidad: 220
+detalle_id: 202 producto: SOMBRA DE OJOS cantidad: 220
+orden_id: 203 empleado: CELY, PABLO cliente: SUPERMERCADO DORADO fecha orden: 2008-07-05 descuento: 6
+detalle_id: 203 producto: BOTON PARA ASADO cantidad: 210
+orden_id: 204 empleado: SANCHEZ, MARIO cliente: MI COMISARIATO fecha orden: 2008-07-06 descuento: 2
+detalle_id: 204 producto: CREMA DE LECHE cantidad: 212
+orden_id: 205 empleado: SANCHEZ, MARIO cliente: SUPERMERCADO DESCUENTO fecha orden: 2008-07-09 descuento: 0
+detalle_id: 205 producto: SALCHICHAS VIENESAS cantidad: 124
+detalle_id: 205 producto: SALCHICHAS DE POLLO cantidad: 220
+orden_id: 206 empleado: CELY, PABLO cliente: SUPERMERCADO DORADO fecha orden: 2008-07-12 descuento: 10
+detalle_id: 206 producto: BOTON PARA ASADO cantidad: 212
+orden_id: 207 empleado: SANCHEZ, MARIO cliente: SUPERMERCADO DORADO fecha orden: 2008-07-14 descuento: 10
+detalle_id: 207 producto: RIMMEL cantidad: 210
+orden_id: 208 empleado: ARIAS, VERONICA cliente: EL ROSADO fecha orden: 2008-07-13 descuento: 10
+detalle_id: 208 producto: SALAMI DE AJO cantidad: 120
+detalle_id: 208 producto: JAMON DE POLLO cantidad: 124
+detalle_id: 208 producto: LECHE CHOCOLATE cantidad: 120
+orden_id: 209 empleado: ARIAS, VERONICA cliente: EL ROSADO fecha orden: 2008-07-17 descuento: 3
+detalle_id: 209 producto: RIMMEL cantidad: 210
+orden_id: 210 empleado: SANCHEZ, MARIO cliente: EL ROSADO fecha orden: 2008-07-18 descuento: 2
+detalle_id: 210 producto: SALCHICHAS VIENESAS cantidad: 25

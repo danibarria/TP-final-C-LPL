@@ -19,7 +19,7 @@ static const char *strSQL_INSERT_Param_NULL_Reporta_a = "'%s','%s','%s',null,%d"
 static const char *strSQL_UPDATE = "update empleados set %s where %s;";
 static const char *strSQL_UPDATE_Param ="fecha_nac = '%s', apellido ='%s', nombre = '%s', reporta_a=%d, extension=%d";
 static const char *strSQL_UPDATE_Param_NULL_Reporta_a ="fecha_nac = '%s', apellido ='%s',nombre = '%s',reporta_a=null, extension=%d";
-
+static char NombreyApellido[MAXLINE];
 //----------------------------------------------------
 //Obtener la cadena SQL para con uso de la clave
 static char *getKey(int k,char *where)
@@ -248,13 +248,14 @@ void *getSupervisor_empleadoImpl(void *self)
 //----------------------------------------------------
 char *nombreyApellido_empleadoImpl(void *self)
 {
-    char *nomap;
     obj_empleado* o;
     o = (obj_empleado*) self;
-    nomap = o->apellido;
-    strcat(nomap  ,", ");
-    strcat(nomap, o->nombre);
-    return nomap;
+    
+    strcpy(NombreyApellido,o->apellido);
+    strcat(NombreyApellido,", ");
+    strcat(NombreyApellido,o->nombre);
+    
+    return NombreyApellido;
 }
 //----------------------------------------------------
 //implementacion de getters
@@ -357,7 +358,9 @@ void *init_empleado(void *self, data_set *ds)
   obj->showObjArchivo =   showObj_empleadoImplArchivo;
   obj->apellido_nombre = nombreyApellido_empleadoImpl;
   //relaciones
+  obj->getNombreApellido = nombreyApellido_empleadoImpl;
   obj->get_Supervisor = (void *)getSupervisor_empleadoImpl;
+  
   return obj;
 }
 //----------------------------------------------------

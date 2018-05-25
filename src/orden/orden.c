@@ -8,6 +8,7 @@
 /// referenciar a la estructua de la cual se va a crear instancia
 #include "../empleado/empleado.h"
 #include "../cliente/cliente.h"
+#include "../orden_det/orden_det.h"
 #define MAXLINE 200
 //columnas de la tabla: orden
 static const char *campos = "orden_id,empleado_id,cliente_id,fecha_orden,descuento";
@@ -179,46 +180,84 @@ int saveObj_ordenImpl(void *self)
     }
 }
 //----------------------------------------------------
-void showObj_ordenImpl(void *self)
-{
-     obj_orden *p=this(self);
-    
-   printf("orden_id: %d - empleado_id: %d - cliente_id:%d  fecha orden: %s descuento: %d\n",p->orden_id,p->empleado_id,p->cliente_id,p->fecha_orden,p->descuento);
+void showObj_ordenImpl(void *self){
+     char criteria[MAX1];
+     obj_orden *o=this(self);
+     obj_empleado *e= o->getEmpleadoObj(o);
+     obj_cliente *c= o->getClienteObj(o);
+     
+     obj_orden_det *ordendet;
+     obj_orden_det *rw;   
+     void *list;
+     
+     printf("orden_id: %d - empleado_id: %s - cliente_id:%s  fecha orden: %s descuento: %d\n",o->orden_id,e->getNombreApellido(e),c->getNombreCia(c),o->fecha_orden,o->descuento);
+     printf("--------------------------------------------------------------------\n");
+     destroyObj(e);
+     destroyObj(c);
+     int i=0,size=0;
+     
+     ordendet = orden_det_new();
+     snprintf( criteria, MAX1,"orden_id= %d", o->orden_id);
+     size = ordendet->findAll(ordendet,&list,criteria);
+     for(i=0;i<size;++i){
+      rw = ((obj_orden_det **)list)[i];
+      rw->showObj(rw);
+      }
+      printf("-----------------------------------------------------------------\n");
 }
 //----------------------------------------------------
 void showObj_ordenImplArchivo(void *self,FILE *fd)
 {
+     char criteria[MAX1];
      obj_orden *self_o=this(self);
-     obj_orden *sup; 
+     obj_empleado *e= self_o->getEmpleadoObj(self_o);
+     obj_cliente *c= self_o->getClienteObj(self_o);
+     
+     obj_orden_det *ordendet;
+     obj_orden_det *rw;   
+     void *list;
      
      char auxiliar[5];
      char linea_armada[MAXLINE];
      char *modelo1 = "orden_id: ";
-     char *modelo2 = " empleado_id: ";
-     char *modelo3 = " cliente_id: ";
+     char *modelo2 = " empleado: ";
+     char *modelo3 = " cliente: ";
      char *modelo4 = " fecha orden: ";
      char *modelo5 = " descuento: ";
      strcpy(linea_armada, modelo1);
      itoa(self_o->orden_id,auxiliar,10);
+     strcat(linea_armada, auxiliar);
      
-     strcat(linea_armada, auxiliar);
      strcat(linea_armada, modelo2);    
-     itoa(self_o->empleado_id,auxiliar,10);
-     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, e->getNombreApellido(e));
+     
      strcat(linea_armada, modelo3);    
-     itoa(self_o->cliente_id,auxiliar,10);
-     strcat(linea_armada, auxiliar);
+     strcat(linea_armada, c->getNombreCia(c));
+     
      strcat(linea_armada, modelo4);    
      strcat(linea_armada, self_o->fecha_orden);
-     strcat(linea_armada, modelo4);    
-     strcat(linea_armada, self_o->fecha_orden);
+   
      strcat(linea_armada, modelo5); 
      itoa(self_o->descuento,auxiliar,10);   
      strcat(linea_armada, auxiliar);
      
      strcat(linea_armada, "\n");
+     
+     fputs(linea_armada, fd);
+     //printf("--------------------------------------------------------------------\n");
+     destroyObj(e);
+     destroyObj(c);
+     int i=0,size=0;
+     
+     ordendet = orden_det_new();
+     snprintf( criteria, MAX1,"orden_id= %d", self_o->orden_id);
+     size = ordendet->findAll(ordendet,&list,criteria);
+     for(i=0;i<size;++i){
+       rw = ((obj_orden_det **)list)[i];
+       rw->showObjArchivo(rw,fd);
+     }
+     //printf("-----------------------------------------------------------------\n");
 
-      fputs(linea_armada, fd);
 }
 //----------------------------------------------------
 
@@ -280,20 +319,29 @@ void setDescuento_Impl(void *self,int descuento)
 //----------------------------------------------------
 void *getEmpleadoObj_Impl(void *self)
 {
-    if(empLocal==NULL)
-    {
+    
 	  empLocal  = empleado_new();
 	  obj_orden *obj = this(self);
 	  empLocal->findbykey(empLocal,obj->getEmpleadoId(obj));
-    }
+
 	return empLocal;
+}
+//----------------------------------------------------
+void *getClienteObj_Impl(void *self)
+{
+
+	  cliLocal  = cliente_new();
+	  obj_orden *obj = this(self);
+	  cliLocal->findbykey(cliLocal,obj->getClienteId(obj));
+    
+	return cliLocal;
 }
 //----------------------------------------------------
 static void destroyInternal_Impl(void *self)
 {//funcion para liberar las referencias a objetos internos
 	obj_orden *obj = this(self);
-	if(empLocal!=NULL)
       free(empLocal);
+      free(cliLocal);
 }
 //----------------------------------------------------
 void *init_orden(void *self, data_set *ds)
@@ -322,6 +370,7 @@ void *init_orden(void *self, data_set *ds)
   obj->showObj =   showObj_ordenImpl;
   obj->showObjArchivo =   showObj_ordenImplArchivo;
   obj->getEmpleadoObj = getEmpleadoObj_Impl;
+  obj->getClienteObj = getClienteObj_Impl;
   obj->destroyInternal = destroyInternal_Impl;
   //relaciones
   

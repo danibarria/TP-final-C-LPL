@@ -42,6 +42,7 @@ typedef struct {
     void (*setDescuento)(void *self,int descuento);
     /*implementacion de relaciones*/
 	void *(*getEmpleadoObj)(void *self);
+   void *(*getClienteObj)(void *self);
     int orden_id;
     int empleado_id;
     int cliente_id;

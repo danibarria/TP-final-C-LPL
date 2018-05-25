@@ -44,6 +44,7 @@ typedef struct {
     void (*setPrecioUnit)(void *self,float precio_unit);
     void (*setExistencia)(void *self,int existencia);
     void *(*getCategoriaObj)(void *self);
+    void *(*getProveedorObj)(void *self);
     /*implementacion de relaciones*/
     int producto_id;
     int proveedor_id;

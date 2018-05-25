@@ -353,6 +353,7 @@ void listarTipo(int tipo)	{
   		printf("\n----------------------------------\n");
   		break;
   	case 3:
+  	   //Se listara las ordenes con sus detalles por simplicidad
   		o = orden_new();
   		listObj(o,NULL,true,NULL);
   		printf("\n----------------------------------\n");
@@ -367,11 +368,6 @@ void listarTipo(int tipo)	{
   		listObj(cat,NULL,true,NULL);
   		printf("\n----------------------------------\n");
   		break;
-  	case 6:
-  		odet = orden_det_new();
-  		listObj(odet,NULL,true,NULL);
-  		printf("\n----------------------------------\n"); 		
-		break;
   	default:
   		printf("Se recibio un listado incorrecto\n");
 		printf("\n----------------------------------\n");
@@ -418,11 +414,6 @@ void listarTipoArchivo(int tipo, char *archivo)	{
   		listObjArchivo(cat,NULL,true,NULL,archivo);
   		printf("\n----------------------------------\n");
   		break;
-  	case 6:
-  		odet = orden_det_new();
-  		listObjArchivo(odet,NULL,true,NULL,archivo);
-  		printf("\n----------------------------------\n"); 		
-		break;
   	default:
   		printf("Se recibio un listado incorrecto\n");
 		printf("\n----------------------------------\n");
